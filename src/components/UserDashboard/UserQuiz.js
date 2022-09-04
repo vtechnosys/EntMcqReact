@@ -2,6 +2,7 @@ import React,{useState} from 'react';
 import Dashboard from "./Dashboard";
 import axios from 'axios';
 function UserQuiz(){
+    
     function AddLibrary(urlOfTheLibrary) {
         const script = document.createElement('script');
         script.src = urlOfTheLibrary;
@@ -11,7 +12,7 @@ function UserQuiz(){
     const [quizname,setQuizname]=useState('');
     const [noquestion,setQuestion]=useState('');
     const [mode,setMode]=useState('');
-    const [timemode,setTimemode]=useState('');
+    
     
     const [userinfo, setUserInfo] = useState({
         
@@ -24,6 +25,19 @@ function UserQuiz(){
         subject: [],
         response: [],
       });
+
+      const [userinforr, setUserInforr] = useState({
+        
+        questionstatus: [],
+        response: [],
+      }); 
+
+      const [userinfotime, setUserInfotime] = useState({
+        
+        timemode: [],
+        response: [],
+      });
+    
     const handlesubject=(e)=>{
         const {value,checked}=e.target;
         const { subject } = userinfor;
@@ -56,7 +70,7 @@ function UserQuiz(){
           const info = {
             name:vl
           }
-        console.log(info);
+       // console.log(info);
         if (checked) {
           
           setUserInfo({
@@ -73,11 +87,54 @@ function UserQuiz(){
             
           }
     }
-    //console.log(userinfo.response);
+    const questionstatus = (e) =>{
+        const {value,checked}=e.target;
+        const {questionstatus} = userinforr;
+        const v2=e.target.value;
+        const info2 = {
+            name:v2
+        }
+        if(checked) {
+            setUserInforr({
+                questionstatus: [...questionstatus,info2],
+                response: [...questionstatus,info2],
+            });
+        }
+        else{
+            setUserInforr({
+                questionstatus:questionstatus.filter((e)=>e !==info2),
+                response:questionstatus.filter((e)=>e !== info2),
+            });
+        }
+    }
+    const timemode = (e) =>{
+        const {value,checked}=e.target;
+        const {timemode} = userinfotime;
+        const v2=e.target.value;
+        const info3 = {
+            name:v2
+        }
+        if(checked) {
+            setUserInfotime({
+                timemode: [...timemode,info3],
+                response: [...timemode,info3],
+            });
+        }
+        else{
+            setUserInfotime({
+                timemode:timemode.filter((e)=>e !==info3),
+                response:timemode.filter((e)=>e !== info3),
+            });
+        }
+    }
+       // console.log(userinfo.response);
     const difficultyinfo=userinfo.response;
     const subjectinfo=userinfor.response;
+    const questionstatueinfo=userinforr.response;
+    const timemodeinfo=userinfotime.response;
     function Addquiz()
     {
+       // alert('test');
         //alert(difficultyinfo);
         const subData = {
             quiz_name:quizname,
@@ -85,10 +142,12 @@ function UserQuiz(){
             difficulty:difficultyinfo,
             subject:subjectinfo,
             no_of_question:noquestion,
-            time_mode:'24 hours',
+            qstatus:questionstatueinfo,
+            time_mode:timemodeinfo,
             time_type:'24',
             total_sec:'sec'
           };
+          console.log(subData);
           axios.post('http://entmcq.vertextechnosys.com/api/quiz',subData)
                 .then((res) =>{
                   console.log(res);
@@ -164,23 +223,23 @@ function UserQuiz(){
                                 <div class="col-sm-5">
                                     <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
                                         <input type="radio" class="btn-check" name="btnradio" id="btnradio1"
-                                            autocomplete="off" checked/>
+                                            autocomplete="off"  value="All (30)" onChange={questionstatus}/>
                                         <label class="btn btn-outline-primary" for="btnradio1">All (30)</label>
 
                                         <input type="radio" class="btn-check" name="btnradio" id="btnradio2"
-                                            autocomplete="off"/>
+                                            autocomplete="off" value="Unanswered (0)" onChange={questionstatus}/>
                                         <label class="btn btn-outline-primary" for="btnradio2">Unanswered (0)</label>
 
                                         <input type="radio" class="btn-check" name="btnradio" id="btnradio3"
-                                            autocomplete="off"/>
+                                            autocomplete="off" value="Incorrect (0)" onChange={questionstatus}/>
                                         <label class="btn btn-outline-primary" for="btnradio3">Incorrect (0)</label>
 
                                         <input type="radio" class="btn-check" name="btnradio" id="btnradio4"
-                                            autocomplete="off"/>
+                                            autocomplete="off" value="Correct (0)" onChange={questionstatus}/>
                                         <label class="btn btn-outline-primary" for="btnradio4">Correct (0)</label>
 
                                         <input type="radio" class="btn-check" name="btnradio" id="btnradio5"
-                                            autocomplete="off"/>
+                                            autocomplete="off" value="Unseen (20)" onChange={questionstatus}/>
                                         <label class="btn btn-outline-primary" for="btnradio5">Unseen (20)</label>
                                     </div>
                                 </div>
@@ -280,8 +339,8 @@ function UserQuiz(){
                                 <li class="list-group-item">
                                     <input class="form-check-input me-1" type="checkbox" onChange={handlesubject} value="Fourth
                                         checkbox"
-                                        id="firstCheckboxStretched"/>
-                                    <label class="form-check-label stretched-link" for="firstCheckboxStretched">Fourth
+                                        id="fourthCheckboxStretched"/>
+                                    <label class="form-check-label stretched-link" for="fourthCheckboxStretched">Fourth
                                         checkbox</label>
                                 </li>
                             </ul>
@@ -313,12 +372,12 @@ function UserQuiz(){
                         <div class="card-body">
                             <div class="btn-group me-3 pe-3 border-end" role="group"
                                 aria-label="Basic radio toggle button group">
-                                <input type="radio" class="btn-check" name="btnradio" value="Untimed" onChange={timemode=>setTimemode(timemode.target.value)} autocomplete="off"
-                                    checked/>
-                                <label class="btn btn-outline-primary" for="btnradio1">Untimed</label>
+                                <input type="radio" class="btn-check" name="btntimemode" id="btntimemode1" value="Untimed" onChange={timemode} autocomplete="off"
+                                    />
+                                <label class="btn btn-outline-primary" for="btntimemode1">Untimed</label>
 
-                                <input type="radio" class="btn-check" name="btnradio" value="Timed" onChange={timemode=>setTimemode(timemode.target.value)} autocomplete="off"/>
-                                <label class="btn btn-outline-primary" for="btnradio2">Timed</label>
+                                <input type="radio" class="btn-check" name="btntimemode" id="btntimemode2" value="Timed" onChange={timemode} autocomplete="off"/>
+                                <label class="btn btn-outline-primary" for="btntimemode2">Timed</label>
                             </div>
                         </div>
 
