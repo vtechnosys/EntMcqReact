@@ -48,6 +48,9 @@ function HeaderIndex(){
                                                 <li class="nav-item">
                                                     <a class="nav-link register" href="/register">Register</a>
                                                 </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link register" href="/questioner_register">Questioner Register</a>
+                                                </li>
                                             </React.Fragment>
                                             
                                         )

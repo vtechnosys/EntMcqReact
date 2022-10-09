@@ -9,7 +9,7 @@ function Login()
 {
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
-
+    const [usertype,setUsertype]=useState('Register');
     function checkRegister(){
         const regi = localStorage.getItem('register')
         if(regi){
@@ -17,20 +17,28 @@ function Login()
             localStorage.removeItem('register');
         }
     }
-
+    function checkRegisterQuestioner(){
+        const regiq = localStorage.getItem('questioner_register')
+        if(regiq){
+            toast.success("Registered Successfull");
+            localStorage.removeItem('questioner_register');
+        }
+    }
     function handleLogin()
     {
         const logData = {
             "email":email,
             "ps":pass,
+            "usertype":usertype,
         }
+        console.log(logData);
         axios.post('https://entmcq.vertextechnosys.com/api/login',logData)
              .then((resp)=>{
                 console.log(resp.data);
                 const data = resp.data;
                 if(data.status == "success")
                 {
-                    //alert('Login Successfully');
+                    
                     localStorage.setItem('login',"success");
                     localStorage.setItem('status',true);
                     localStorage.setItem('info',data.info.id);
@@ -47,6 +55,7 @@ function Login()
 
     useEffect(()=>{
         checkRegister();
+        checkRegisterQuestioner();
     },[])
 
     return(
@@ -135,6 +144,16 @@ function Login()
                                             <button type="button" class="btn btn-light bg-transparent">
                                                 <i class="bi bi-eye"></i>
                                             </button>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">User Type <span class="text-danger">*</span></label>
+                                        <div class="input-group">
+                                            <select class="form-control" value={usertype} onChange={usertype=>setUsertype(usertype.target.value)}>
+                                            <option value="Register">Register</option>
+                                            <option value="Questioner_register">Questioner Register</option>
+                                            </select>
+                                            
                                         </div>
                                     </div>
                                     <div class="row mb-3">

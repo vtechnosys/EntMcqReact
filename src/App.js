@@ -22,6 +22,8 @@ import UserQuiz from './components/UserDashboard/UserQuiz';
 
 import {BrowserRouter,Routes,Route} from 'react-router-dom';
 
+import Questioner_register from './components/Questioner_register';
+
 function App() {
   return (
     <BrowserRouter>
@@ -40,7 +42,7 @@ function App() {
         <Route path='dashboard/settings' element={<Settings/>} />
         <Route path='dashboard/custom-quiz' element={<UserQuiz/>}/>
         <Route path='logout' element={<Logout/>} />
-
+        <Route path='questioner_register' element={<Questioner_register/>}/>
       </Routes>
       
       
