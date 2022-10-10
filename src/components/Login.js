@@ -38,11 +38,20 @@ function Login()
                 const data = resp.data;
                 if(data.status == "success")
                 {
-                    
-                    localStorage.setItem('login',"success");
-                    localStorage.setItem('status',true);
-                    localStorage.setItem('info',data.info.id);
-                    window.location.href="/dashboard";
+                    if(data.usertype=="Register")
+                    {
+                        localStorage.setItem('login',"success");
+                        localStorage.setItem('status',true);
+                        localStorage.setItem('info',data.info.id);
+                        window.location.href="/dashboard";
+                    }
+                    else if(data.usertype=="Questioner_register")
+                    {
+                        localStorage.setItem('login',"success");
+                        localStorage.setItem('status',true);
+                        localStorage.setItem('info',data.info.id);
+                        window.location.href="/questioner_dashboard";
+                    }
                 }
                 else{
                     
