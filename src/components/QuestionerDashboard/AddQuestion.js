@@ -66,7 +66,7 @@ function AddQuestion()
       setQuestionError(true)
     }else if(subid=="")
     {
-      toast.error('Select Subject');
+      toast.error('Select Category');
       setSubid('');
       setSubjectError(true)
     }else if(title==""){

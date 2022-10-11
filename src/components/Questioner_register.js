@@ -98,15 +98,15 @@ function Register(){
                 bankdetails:bankdetail,
                 password:pass
             }
-           // console.log(data);
+           console.log(data);
             
             axios.post("https://entmcq.vertextechnosys.com/api/questioner_reg",data)
             
                     .then((res)=>{
                         const data = res.data;
-                        //console.log(data);
+                        console.log(data);
                         const id=data[0].id;
-                        //console.log(data[0]['status']);
+                        console.log(id);
                         if(data[0].status == "success"){
                             
                             
@@ -114,8 +114,8 @@ function Register(){
                             alert("Registered Successfully Please Check Your Mail Confirm Your Varification");
                             axios.get("https://entmcq.vertextechnosys.com/sendmailtest/"+id)
                             .then((res)=>{
-                                // const data=res.data;
-                                // console.log(data);
+                                const data=res.data;
+                                console.log(data);
                                 // console.log('testing demo');
                             });
                         }
@@ -126,7 +126,7 @@ function Register(){
                     })
                   ///  alert("Registered Successfully Please Check Your Mail Confirm Your Varification");
                             
-            //console.log(data);
+            console.log(data);
         }
         
         

@@ -22,7 +22,7 @@ export const isBankname = (bankname) =>{
     return validator.isAlpha(bankname);
 }
 export const isAccountHoldername = (accountholder) =>{
-    return validator.isAlpha(accountholder);
+    return validator.isNumeric(accountholder);
 }
 export const isAccountnumber = (accountnumber) =>{
     return validator.isAlpha(accountnumber);
@@ -31,7 +31,7 @@ export const isIfsccode = (ifsccode) =>{
     return validator.isAlpha(ifsccode);
 }
 export const isMobilenumber = (contactnumber) =>{
-    return validator.isNumeric(contactnumber);
+    return validator.isAlpha(contactnumber);
 }
 export const isPasss = (ps) =>{
     return validator.isStrongPassword(ps,{

@@ -65,17 +65,28 @@ function Register(){
                 name:fname+" "+lname,
                 email:em,
                 password:pass,
-                register_date:dt
+                register_date:dt,
+                prof:prof,
+                area:pract
     
             }
+            console.log(data);
             axios.post("https://entmcq.vertextechnosys.com/api/users",data)
                     .then((res)=>{
                         const data = res.data;
                         console.log(data);
+                        const id=data.id;
+                        //console.log(id);
                         if(data.status == "success"){
                             //alert("Registered Successfully");
                             localStorage.setItem('register',true);
-                            window.location.href="/login"
+                            alert("Registered Successfully Please Check Your Mail Confirm Your Varification");
+                            axios.get("https://entmcq.vertextechnosys.com/sendmail/"+id)
+                            .then((res)=>{
+                                const data=res.data;
+                                console.log(data);
+                                // console.log('testing demo');
+                            });
                         }
                         else{
                             toast.error(data.msg);
@@ -215,8 +226,10 @@ function Register(){
                     <div class="row">
                         <div class="col-sm-6 mb-3">
                             <label class="form-label">Your Profession Is<span class="text-danger">*</span></label>
-                            <select class="form-select" value={prof} onChange={prof=>setProf(prof.target.value)}>
-                                
+                            <select class="form-select"  onChange={prof=>setProf(prof.target.value)} value={prof}
+                            
+                            >
+                                <option value="">Select</option>
                                 <option value="Profession-I">Profession-I</option>
                                 <option value="Profession-II">Profession-II</option>
                                 <option value="Profession-III">Profession-III</option>
@@ -225,8 +238,8 @@ function Register(){
                         <div class="col-sm-6 mb-3">
                             <label class="form-label">Your area of practive is<span
                                     class="text-danger">* </span></label>
-                                    <select class="form-select" value={pract} onChange={pract=>setPract(pract.target.value)}>
-                                        
+                                    <select class="form-select"  onChange={pract=>setPract(pract.target.value)} value={pract}>
+                                        <option value="">Select</option>
                                         <option value="Area-I">Area-I</option>
                                         <option value="Area-II">Area-II</option>
                                         <option value="Area-III">Area-III</option>

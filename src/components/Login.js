@@ -28,14 +28,16 @@ function Login()
     {
         const logData = {
             "email":email,
-            "ps":pass,
-            "usertype":usertype,
+            "ps":pass
+            
         }
         console.log(logData);
         axios.post('https://entmcq.vertextechnosys.com/api/login',logData)
              .then((resp)=>{
                 console.log(resp.data);
+
                 const data = resp.data;
+               // console.log(data);
                 if(data.status == "success")
                 {
                     if(data.usertype=="Register")
@@ -155,7 +157,7 @@ function Login()
                                             </button>
                                         </div>
                                     </div>
-                                    <div class="mb-3">
+                                    {/* <div class="mb-3">
                                         <label class="form-label">User Type <span class="text-danger">*</span></label>
                                         <div class="input-group">
                                             <select class="form-control" value={usertype} onChange={usertype=>setUsertype(usertype.target.value)}>
@@ -164,7 +166,7 @@ function Login()
                                             </select>
                                             
                                         </div>
-                                    </div>
+                                    </div> */}
                                     <div class="row mb-3">
                                         <div class="col-sm-6">
                                             <div class="form-check">
